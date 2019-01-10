@@ -97,6 +97,7 @@ function listMajors(response) {
           .mixData(rows.slice(0, 1).flatArray());
 
         if (rows.length) {
+          console.log(`${data.length} rows retrieved`);
           response.send(data);
         } else {
           console.log("No data found.");
@@ -112,7 +113,6 @@ Array.prototype.mixData = function(keys = []) {
   this.forEach(innerArr => {
     let obj = {};
     innerArr.forEach((item, i) => {
-      console.log(item, i);
       obj = { ...obj, [keys[i] || i]: item };
     });
     flattened.push(obj);
