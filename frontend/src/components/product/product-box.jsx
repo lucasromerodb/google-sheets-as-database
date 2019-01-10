@@ -23,7 +23,7 @@ export class ProductBox extends Component {
           {categoria} - Producto disponible: {disponible === "si" ? "si" : "no"}
         </h4>
         <div className="container">
-          <img src={foto || placeholder} alt="" width={200} height={200} />
+          <img src={foto || placeholder} alt="Product" />
           <p>{descripcion}</p>
         </div>
       </section>

@@ -21,6 +21,7 @@
   padding-left: 30px;
   margin: 0;
 }
+
 .product h2 {
   margin-bottom: 10px;
   margin-top: 0;
@@ -29,4 +30,9 @@
 .product h4 {
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.product img {
+  width: 200px;
+  height: 200px;
 }
