@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import { Product } from "./components/product";
 import "./App.css";
@@ -6,10 +6,10 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <div className="wrapper">
         <h1>Diamore</h1>
         <Product />
-      </Fragment>
+      </div>
     );
   }
 }

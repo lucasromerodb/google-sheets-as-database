@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ProductBox } from "./product-box";
+import './product.css'
 
 export class Product extends Component {
   state = {

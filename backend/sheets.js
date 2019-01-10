@@ -113,7 +113,7 @@ Array.prototype.mixData = function(keys = []) {
   this.forEach(innerArr => {
     let obj = {};
     innerArr.forEach((item, i) => {
-      obj = { ...obj, [keys[i] || i]: item };
+      obj = { ...obj, [keys[i] || i]: item || "--" };
     });
     flattened.push(obj);
   });
