@@ -24,15 +24,13 @@ export class Product extends Component {
   };
 
   handleChange = e => {
-    const searchInput = e.target.value;
+    const searchInput = e.target.value.toLowerCase();
     const products = this.state.products;
     if (searchInput.length > 2) {
       const filtered = products.filter(item =>
-        String(item.producto)
-          .toLowerCase()
-          .includes(searchInput)
+        item.producto.toLowerCase().includes(searchInput)
       );
-      this.setState({ searchInput, searchResult: filtered });
+      this.setState({ searchResult: filtered });
     } else {
       this.setState({ searchResult: products });
     }
@@ -46,7 +44,7 @@ export class Product extends Component {
     const { searchResult } = this.state;
     console.log("products -->", this.state.searchResult);
 
-    return searchResult.length ? (
+    return (
       <Fragment>
         <input
           className="filter"
@@ -55,26 +53,32 @@ export class Product extends Component {
           onChange={this.handleChange}
           placeholder="Buscá un producto..."
         />
-        {searchResult.length
-          ? searchResult.filter(i => i.destacado === true).length > 0 && (
-              <section className="featuredProducts">
-                <h4>Productos destacados</h4>
-                <div className="container">
-                  <Featured
-                    item={searchResult.filter(i => i.destacado === true)}
-                  />
-                </div>
-              </section>
-            )
-          : ""}
         {searchResult.length ? (
-          searchResult.map(item => <ProductBox key={item.codigo} item={item} />)
+          <Fragment>
+            {searchResult.length
+              ? searchResult.filter(i => i.destacado === true).length > 0 && (
+                  <section className="featuredProducts">
+                    <h4>Productos destacados</h4>
+                    <div className="container">
+                      <Featured
+                        item={searchResult.filter(i => i.destacado === true)}
+                      />
+                    </div>
+                  </section>
+                )
+              : ""}
+            {searchResult.length ? (
+              searchResult.map(item => (
+                <ProductBox key={item.codigo} item={item} />
+              ))
+            ) : (
+              <h5>No hay productos.</h5>
+            )}
+          </Fragment>
         ) : (
-          <h5>No hay productos.</h5>
+          ""
         )}
       </Fragment>
-    ) : (
-      "Cargando..."
     );
   }
 }

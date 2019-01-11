@@ -24,6 +24,7 @@ export class ProductBox extends Component {
           destacado &&
           "is-featured"}`}
       >
+        {destacado && <span className="featuredProduct">Destacado!</span>}
         <h2>
           {producto} <sup>#{codigo}</sup>
         </h2>
@@ -44,8 +45,8 @@ export class ProductBox extends Component {
             <img src={item || placeholder} alt="Product" key={item} />
           ))}
 
-          <p>{descripcion}</p>
-          <ul>
+          <p className="description">{descripcion}</p>
+          <ul className="features">
             {caracteristicas.map(item => (
               <li key={item}>{item}</li>
             ))}
@@ -57,7 +58,7 @@ export class ProductBox extends Component {
             Consultar precio
           </a>
           <a className="cta" href={descarga}>
-            Saber más de este producto »
+            Más info. »
           </a>
 
           <a
