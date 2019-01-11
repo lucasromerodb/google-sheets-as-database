@@ -12,6 +12,18 @@ Array.prototype.splitItems = function(value) {
   }));
 };
 
+Array.prototype.imgFromDrive = function() {
+  return this.map(item => ({
+    ...item,
+    fotos: item.fotos.map(photo =>
+      photo.replace(
+        "https://drive.google.com/open?id=",
+        "https://drive.google.com/uc?id="
+      )
+    )
+  }));
+};
+
 Array.prototype.splitFeatures = function() {
   return this.map(item => ({
     ...item,

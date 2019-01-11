@@ -101,6 +101,7 @@ function listMajors(response) {
           productos: productos
             .toObject()
             .splitItems("fotos")
+            .imgFromDrive()
             .splitItems("etiquetas")
             .splitItems("descargas")
             .splitFeatures()
