@@ -1,0 +1,22 @@
+.featured {
+  width: 100%;
+  max-width: 120px;
+  margin: 10px;
+}
+
+.image {
+  display: block;
+  width: 120px;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px silver, 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+.text {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.7em;
+  line-height: 1.4em;
+}

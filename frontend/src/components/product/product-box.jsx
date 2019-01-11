@@ -36,8 +36,8 @@ export class ProductBox extends Component {
           {visible ? "Disponible" : "No disponible"})
         </h4>
         <p>
-          <span>Rubro: {rubro}</span> <br />
-          <span>Marca: {marca}</span>
+          {rubro && <span>Rubro: {rubro}</span>} <br />
+          {marca && <span>Marca: {marca}</span>}
         </p>
         <div className="container">
           {fotos.map(item => (
@@ -50,15 +50,18 @@ export class ProductBox extends Component {
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <a href={descarga}>
-            <button>Saber más de este producto >></button>
-          </a>
           <a
+            className="cta primary"
             href={`mailto:info@diamore.com.ar?subject=[Consulta de precio] - ${producto} (#${codigo})&body=Buen día, quisiera consultar el precio de ▸ ${producto} ◂ y recibir mas información al respecto. Saludos cordiales.`}
           >
             Consultar precio
           </a>
+          <a className="cta" href={descarga}>
+            Saber más de este producto »
+          </a>
+
           <a
+            className="cta whatsapp"
             href={`whatsapp://send?text=${producto}%20http://diamore.com.ar/`}
             data-action="share/whatsapp/share"
           >

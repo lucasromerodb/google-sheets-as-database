@@ -46,24 +46,35 @@ export class Product extends Component {
     const { searchResult } = this.state;
     console.log("products -->", this.state.searchResult);
 
-    return (
+    return searchResult.length ? (
       <Fragment>
-        <label htmlFor="search">Buscar producto</label>{" "}
         <input
+          className="filter"
           id="search"
           type="text"
           onChange={this.handleChange}
-          placeholder="Ej: resistencias"
+          placeholder="Buscá un producto..."
         />
-        {searchResult.length && (
-          <Featured item={searchResult.filter(i => i.destacado === true)} />
-        )}
+        {searchResult.length
+          ? searchResult.filter(i => i.destacado === true).length > 0 && (
+              <section className="featuredProducts">
+                <h4>Productos destacados</h4>
+                <div className="container">
+                  <Featured
+                    item={searchResult.filter(i => i.destacado === true)}
+                  />
+                </div>
+              </section>
+            )
+          : ""}
         {searchResult.length ? (
           searchResult.map(item => <ProductBox key={item.codigo} item={item} />)
         ) : (
-          <h5>La búsqueda no coincide.</h5>
+          <h5>No hay productos.</h5>
         )}
       </Fragment>
+    ) : (
+      "Cargando..."
     );
   }
 }
