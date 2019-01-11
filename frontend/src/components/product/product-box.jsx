@@ -9,19 +9,24 @@ export class ProductBox extends Component {
       categoria,
       descripcion,
       fotos,
-      visible
+      visible,
+      destacado,
+      discontinuado
     } = this.props.item;
     return (
       <section
-        className={`product ${(!visible || visible !== "si") &&
-          "not-available"}`}
+        className={`product ${!visible && "not-available"} ${visible &&
+          destacado &&
+          "is-featured"}`}
       >
         <h2>
           {producto} <sup>#{codigo}</sup>
         </h2>
+        {discontinuado && (
+          <strong style={{ color: "red" }}>Producto discontinuado</strong>
+        )}
         <h4>
-          Categoría{categoria} (
-          {visible === "si" ? "Disponible" : "No disponible"})
+          Categoría{categoria} ({visible ? "Disponible" : "No disponible"})
         </h4>
         <div className="container">
           {fotos.map(item => (

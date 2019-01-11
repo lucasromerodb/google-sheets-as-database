@@ -11,6 +11,10 @@
   opacity: 0.4;
 }
 
+.product.is-featured {
+  box-shadow: inset 0 0 0 2px green;
+}
+
 /* .product .container {
   display: flex;
   margin-top: 20px;
