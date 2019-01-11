@@ -11,14 +11,14 @@
   opacity: 0.4;
 }
 
-.product .container {
+/* .product .container {
   display: flex;
   margin-top: 20px;
-}
+} */
 
 .container p {
   box-sizing: border-box;
-  padding-left: 30px;
+  /* padding-left: 30px; */
   margin: 0;
 }
 
@@ -33,6 +33,6 @@
 }
 
 .product img {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
 }

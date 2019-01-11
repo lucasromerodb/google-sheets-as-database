@@ -4,28 +4,34 @@ import "./product.css";
 
 export class Product extends Component {
   state = {
-    data: [],
-    search: []
+    products: [],
+    searchResult: [],
+    searchInput: ""
   };
 
   getData = () => {
-    fetch("http://localhost:4000/products")
+    fetch("http://localhost:4000")
       .then(res => res.json())
-      .then(data => this.setState({ data, search: data }));
+      .then(data =>
+        this.setState({
+          products: data.productos,
+          searchResult: data.productos
+        })
+      );
   };
 
   handleChange = e => {
-    const value = e.target.value;
-    const data = this.state.data;
-    if (value.length > 2) {
-      const filtered = data.filter(item =>
+    const searchInput = e.target.value;
+    const products = this.state.products;
+    if (searchInput.length > 2) {
+      const filtered = products.filter(item =>
         String(item.producto)
           .toLowerCase()
-          .includes(value)
+          .includes(searchInput)
       );
-      this.setState({ search: filtered });
+      this.setState({ searchInput, searchResult: filtered });
     } else {
-      this.setState({ search: data });
+      this.setState({ searchResult: products });
     }
   };
 
@@ -34,7 +40,8 @@ export class Product extends Component {
   }
 
   render() {
-    const { search } = this.state;
+    const { searchResult } = this.state;
+    console.log("products -->", this.state.searchResult);
     return (
       <Fragment>
         <label htmlFor="search">Buscar producto</label>{" "}
@@ -42,10 +49,10 @@ export class Product extends Component {
           id="search"
           type="text"
           onChange={this.handleChange}
-          placeholder="Nombre del producto..."
+          placeholder="Ej: resistencias"
         />
-        {search.length ? (
-          search.map(item => <ProductBox key={item.codigo} item={item} />)
+        {searchResult.length ? (
+          searchResult.map(item => <ProductBox key={item.codigo} item={item} />)
         ) : (
           <h5>La búsqueda no coincide.</h5>
         )}
