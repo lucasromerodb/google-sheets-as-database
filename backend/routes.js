@@ -11,10 +11,6 @@ var appRouter = function(app) {
   });
 
   app.get("/", function(req, res) {
-    res.status(200).send({ message: "Welcome to our restful API" });
-  });
-
-  app.get("/products", function(req, res) {
     sheets.get(res);
   });
 };

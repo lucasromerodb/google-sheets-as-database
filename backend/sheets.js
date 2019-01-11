@@ -1,5 +1,6 @@
 const fs = require("fs");
 const readline = require("readline");
+require("./utils");
 const { google } = require("googleapis");
 
 // If modifying these scopes, delete token.json.
@@ -84,20 +85,29 @@ function listMajors(response) {
   return auth => {
     const sheets = google.sheets({ version: "v4", auth });
 
-    sheets.spreadsheets.values.get(
+    sheets.spreadsheets.values.batchGet(
       {
         spreadsheetId: "1ggKScgda0eQegkrtHI4_zzn10hOcCFn7VdMUSUl3Of0",
-        range: "A1:F"
+        ranges: ["Productos", "Categorias"]
       },
       (err, res) => {
         if (err) return console.log("The API returned an error: " + err);
-        const rows = res.data.values;
-        const data = rows
-          .slice(1, rows.length)
-          .mixData(rows.slice(0, 1).flatArray());
 
-        if (rows.length) {
-          console.log(`${data.length} rows retrieved`);
+        const {
+          valueRanges: [{ values: productos }, { values: categorias }]
+        } = res.data;
+
+        const data = {
+          productos: productos.toObject().splitPhotos(),
+          categorias: categorias.toObject()
+        };
+
+        if (res.data.valueRanges.length) {
+          console.log(
+            `productos: ${data.productos.length} / categorias: ${
+              data.categorias.length
+            }`
+          );
           response.send(data);
         } else {
           console.log("No data found.");
@@ -106,23 +116,3 @@ function listMajors(response) {
     );
   };
 }
-
-Array.prototype.mixData = function(keys = []) {
-  let flattened = [];
-
-  this.forEach(innerArr => {
-    let obj = {};
-    innerArr.forEach((item, i) => {
-      obj = { ...obj, [keys[i] || i]: item || "--" };
-    });
-    flattened.push(obj);
-  });
-
-  return flattened;
-};
-
-Array.prototype.flatArray = function() {
-  let flattened = [];
-  this.forEach(innerArray => innerArray.forEach(item => flattened.push(item)));
-  return flattened;
-};
