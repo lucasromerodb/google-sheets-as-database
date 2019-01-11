@@ -98,7 +98,15 @@ function listMajors(response) {
         } = res.data;
 
         const data = {
-          productos: productos.toObject().splitPhotos(),
+          productos: productos
+            .toObject()
+            .splitItems("fotos")
+            .splitItems("etiquetas")
+            .splitItems("descargas")
+            .splitFeatures()
+            .toBoolean("visible")
+            .toBoolean("destacado")
+            .toBoolean("discontinuado"),
           categorias: categorias.toObject()
         };
 

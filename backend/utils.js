@@ -5,9 +5,28 @@ Array.prototype.toObject = function() {
   );
 };
 
-Array.prototype.splitPhotos = function() {
+Array.prototype.splitItems = function(value) {
   return this.map(item => ({
     ...item,
-    fotos: item.fotos && item.fotos.split(";")
+    [value]: item[value] && item[value].split(/\s*,\s*/).map(i => i.trim())
+  }));
+};
+
+Array.prototype.splitFeatures = function() {
+  return this.map(item => ({
+    ...item,
+    caracteristicas:
+      item.caracteristicas &&
+      item.caracteristicas
+        .split(/\s*\*\*\s*/)
+        .slice(1)
+        .map(i => i.trim())
+  }));
+};
+
+Array.prototype.toBoolean = function(value) {
+  return this.map(item => ({
+    ...item,
+    [value]: /^\s*si\s*$/i.test(item[value])
   }));
 };
