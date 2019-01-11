@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { ProductBox } from "./product-box";
+import { Featured } from "../featured";
 import "./product.css";
 
 export class Product extends Component {
@@ -10,7 +11,9 @@ export class Product extends Component {
   };
 
   getData = () => {
-    fetch("http://localhost:4000")
+    const work = "http://10.20.7.47:4000";
+    const localhost = "http://localhost:4000";
+    fetch(work)
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -42,6 +45,7 @@ export class Product extends Component {
   render() {
     const { searchResult } = this.state;
     console.log("products -->", this.state.searchResult);
+
     return (
       <Fragment>
         <label htmlFor="search">Buscar producto</label>{" "}
@@ -51,6 +55,9 @@ export class Product extends Component {
           onChange={this.handleChange}
           placeholder="Ej: resistencias"
         />
+        {searchResult.length && (
+          <Featured item={searchResult.filter(i => i.destacado === true)} />
+        )}
         {searchResult.length ? (
           searchResult.map(item => <ProductBox key={item.codigo} item={item} />)
         ) : (
