@@ -5,6 +5,13 @@ Array.prototype.toObject = function() {
   );
 };
 
+Array.prototype.addId = function() {
+  return this.map((item, i) => ({
+    ...item,
+    id: i + 1
+  }));
+};
+
 Array.prototype.splitItems = function(value) {
   return this.map(item => ({
     ...item,
@@ -15,12 +22,14 @@ Array.prototype.splitItems = function(value) {
 Array.prototype.imgFromDrive = function() {
   return this.map(item => ({
     ...item,
-    fotos: item.fotos.map(photo =>
-      photo.replace(
-        "https://drive.google.com/open?id=",
-        "https://drive.google.com/uc?id="
+    fotos:
+      item.fotos &&
+      item.fotos.map(photo =>
+        photo.replace(
+          "https://drive.google.com/open?id=",
+          "https://drive.google.com/uc?id="
+        )
       )
-    )
   }));
 };
 
@@ -39,6 +48,6 @@ Array.prototype.splitFeatures = function() {
 Array.prototype.toBoolean = function(value) {
   return this.map(item => ({
     ...item,
-    [value]: /^\s*si\s*$/i.test(item[value])
+    [value]: item[value] && /^\s*si\s*$/i.test(item[value])
   }));
 };

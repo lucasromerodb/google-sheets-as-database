@@ -88,7 +88,7 @@ function listMajors(response) {
     sheets.spreadsheets.values.batchGet(
       {
         spreadsheetId: "1ggKScgda0eQegkrtHI4_zzn10hOcCFn7VdMUSUl3Of0",
-        ranges: ["Productos", "Categorias"]
+        ranges: ["Productos", "Propiedades"]
       },
       (err, res) => {
         if (err) return console.log("The API returned an error: " + err);
@@ -100,21 +100,22 @@ function listMajors(response) {
         const data = {
           productos: productos
             .toObject()
+            .addId()
             .splitItems("fotos")
             .imgFromDrive()
             .splitItems("etiquetas")
             .splitItems("descargas")
             .splitFeatures()
-            .toBoolean("visible")
+            // .toBoolean("visible")
             .toBoolean("destacado")
             .toBoolean("discontinuado"),
-          categorias: categorias.toObject()
+          propiedades: categorias.toObject()
         };
 
         if (res.data.valueRanges.length) {
           console.log(
-            `productos: ${data.productos.length} / categorias: ${
-              data.categorias.length
+            `productos: ${data.productos.length} / propiedades: ${
+              data.propiedades.length
             }`
           );
           response.send(data);
