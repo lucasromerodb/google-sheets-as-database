@@ -13,7 +13,7 @@ export class Product extends Component {
   getData = () => {
     const work = "http://10.20.7.47:4000";
     const localhost = "http://localhost:4000";
-    fetch(work)
+    fetch(localhost)
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -68,9 +68,7 @@ export class Product extends Component {
                 )
               : ""}
             {searchResult.length ? (
-              searchResult.map(item => (
-                <ProductBox key={item.codigo} item={item} />
-              ))
+              searchResult.map(item => <ProductBox key={item.id} item={item} />)
             ) : (
               <h5>No hay productos.</h5>
             )}

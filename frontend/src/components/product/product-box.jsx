@@ -11,7 +11,7 @@ export class ProductBox extends Component {
       descripcion,
       caracteristicas,
       fotos,
-      visible,
+      publicado,
       destacado,
       discontinuado,
       descarga,
@@ -20,7 +20,7 @@ export class ProductBox extends Component {
     } = this.props.item;
     return (
       <section
-        className={`product ${!visible && "not-available"} ${visible &&
+        className={`product ${!publicado && "not-available"} ${publicado &&
           destacado &&
           "is-featured"}`}
       >
@@ -34,32 +34,39 @@ export class ProductBox extends Component {
         <h4>
           Categoría: {categoria}
           {subcategoria && ` » ${subcategoria}`} (
-          {visible ? "Disponible" : "No disponible"})
+          {publicado ? "Disponible" : "No disponible"})
         </h4>
         <p>
           {rubro && <span>Rubro: {rubro}</span>} <br />
           {marca && <span>Marca: {marca}</span>}
         </p>
         <div className="container">
-          {fotos.map(item => (
-            <img src={item || placeholder} alt="Product" key={item} />
-          ))}
-
-          <p className="description">{descripcion}</p>
-          <ul className="features">
-            {caracteristicas.map(item => (
-              <li key={item}>{item}</li>
+          {fotos &&
+            fotos.map(item => (
+              <img src={item || placeholder} alt="Product" key={item} />
             ))}
-          </ul>
+
+          {descripcion && <p className="description">{descripcion}</p>}
+          {caracteristicas && caracteristicas.length ? (
+            <ul className="features">
+              {caracteristicas.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            ""
+          )}
           <a
             className="cta primary"
             href={`mailto:info@diamore.com.ar?subject=[Consulta de precio] - ${producto} (#${codigo})&body=Buen día, quisiera consultar el precio de ▸ ${producto} ◂ y recibir mas información al respecto. Saludos cordiales.`}
           >
             Consultar precio
           </a>
-          <a className="cta" href={descarga}>
-            Más info. »
-          </a>
+          {descarga && (
+            <a className="cta" href={descarga}>
+              Más info. »
+            </a>
+          )}
 
           <a
             className="cta whatsapp"
