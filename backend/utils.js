@@ -1,8 +1,10 @@
 Array.prototype.toObject = function() {
   const [keys, ...rows] = this;
-  return rows.map(row =>
-    Object.assign({}, ...keys.map((key, index) => ({ [key]: row[index] })))
-  );
+  return rows
+    .filter(row => row.length)
+    .map((row, i) =>
+      Object.assign({}, ...keys.map((key, index) => ({ [key]: row[index] })))
+    );
 };
 
 Array.prototype.addId = function() {

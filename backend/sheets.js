@@ -106,7 +106,7 @@ function listMajors(response) {
             .splitItems("etiquetas")
             .splitItems("descargas")
             .splitFeatures()
-            // .toBoolean("visible")
+            .toBoolean("visible")
             .toBoolean("destacado")
             .toBoolean("discontinuado"),
           propiedades: categorias.toObject()
